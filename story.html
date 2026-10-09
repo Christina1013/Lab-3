@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Three Images, Two Stories</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <h1>Lab 3: Photo Carousel</h1>
+  <button id="btn1">Story 1</button>
+  <button id="btn2">Story 2</button>
+
+  <h2 id="title"></h2>
+  <h3 id="part"></h3>
+  <img id="picture">
+  <p id="caption"></p>
+  <button id="next">Next</button>
+
+  <script>
+
+    let whale      = "images/whale.png";
+    let balloon    = "images/balloon.png";
+    let watermelon = "images/watermelon.png";
+
+    let title1    = "Story 1: The Dreamer";
+    let images1   = [whale, watermelon, balloon];
+    let captions1 = ["A boy sees a giant whale floating in the sky and dreams of flying.",
+                     "Years later he makes his own flying gear: a watermelon helmet and goggles.",
+                     "Finally he flies high above the canyon. His dream came true."];
+
+    let title2    = "Story 2: The Inventor";
+    let images2   = [balloon, watermelon, whale];
+    let captions2 = ["Every hot air balloon looks the same. Flying has become boring.",
+                     "A goofy inventor puts on his watermelon helmet. He has a wild idea.",
+                     "His flying whale takes off, and a little boy waves at it."];
+
+    let parts = ["Beginning", "Middle", "End"];
+
+    let title    = title1;
+    let images   = images1;
+    let captions = captions1;
+    let step     = 0;
+
+    function show() {
+      document.getElementById("title").textContent   = title;
+      document.getElementById("part").textContent    = parts[step];
+      document.getElementById("picture").src         = images[step];
+      document.getElementById("picture").alt         = captions[step];
+      document.getElementById("caption").textContent = captions[step];
+
+      if (step == 2) {
+        document.getElementById("next").textContent = "Start Over";
+      } else {
+        document.getElementById("next").textContent = "Next";
+      }
+    }
+    function next() {
+      step = step + 1;
+      if (step > 2) {
+        step = 0;
+      }
+      show();
+    }
+    function chooseStory(newTitle, newImages, newCaptions) {
+      title    = newTitle;
+      images   = newImages;
+      captions = newCaptions;
+      step     = 0;
+      show();
+    }
+    document.getElementById("btn1").addEventListener("click", function () {
+      chooseStory(title1, images1, captions1);
+    });
+    document.getElementById("btn2").addEventListener("click", function () {
+      chooseStory(title2, images2, captions2);
+    });
+    document.getElementById("next").addEventListener("click", next);
+    document.getElementById("picture").addEventListener("click", next);
+
+    show();
+  </script>
+
+</body>
+</html>
